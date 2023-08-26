@@ -5,10 +5,24 @@ from dotenv import find_dotenv, load_dotenv
 import requests
 from playsound import playsound
 import os
-# import openai
 
 load_dotenv(find_dotenv())
 ELEVEN_LABS_API_KEY = os.getenv('ELEVEN_LABS_API_KEY')
+
+def get_voice_messages(message):
+    payload = {
+        "text" : message,
+        "model_id" : "eleven_monolingual_v1",
+        "voice_settings" :{
+            "stability": 0,
+            "silmilarity_boost": 0
+        }
+    }
+    headers = {
+        "Accept": "audio/mpeg",
+        "xi_api_key": ELEVEN_LABS_API_KEY,
+        "Content-Type": "application/json"
+    }
 
 def get_response_from_ai(human_input):
     template = """
